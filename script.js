@@ -1,22 +1,67 @@
-const toggle = document.querySelector('.nav-toggle');
-const nav = document.querySelector('#site-nav');
-const header = document.querySelector('.site-header');
+// ==========================================================
+// ELEMENT SELECTION
+// ==========================================================
 
-toggle.addEventListener('click', () => {
-  const isOpen = nav.classList.toggle('open');
-  toggle.setAttribute('aria-expanded', String(isOpen));
-});
+const toggle = document.querySelector(".nav-toggle");
+const nav = document.querySelector("#site-nav");
+const header = document.querySelector(".site-header");
+const year = document.querySelector("#year");
 
-nav.addEventListener('click', () => {
-  nav.classList.remove('open');
-  toggle.setAttribute('aria-expanded', 'false');
-});
 
-document.querySelector('#year').textContent = new Date().getFullYear();
+// ==========================================================
+// MOBILE NAVIGATION
+// ==========================================================
 
-const updateHeader = () => {
-  header.classList.toggle('scrolled', window.scrollY > 12);
-};
+if (toggle && nav) {
 
-window.addEventListener('scroll', updateHeader, { passive: true });
-updateHeader();
+    toggle.addEventListener("click", () => {
+
+        const isOpen = nav.classList.toggle("open");
+
+        toggle.setAttribute("aria-expanded", isOpen);
+
+    });
+
+    // Close menu when a navigation link is clicked
+    nav.querySelectorAll("a").forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            nav.classList.remove("open");
+            toggle.setAttribute("aria-expanded", "false");
+
+        });
+
+    });
+
+}
+
+
+// ==========================================================
+// FOOTER YEAR
+// ==========================================================
+
+if (year) {
+    year.textContent = new Date().getFullYear();
+}
+
+
+// ==========================================================
+// STICKY HEADER EFFECT
+// ==========================================================
+
+if (header) {
+
+    const updateHeader = () => {
+
+        header.classList.toggle("scrolled", window.scrollY > 12);
+
+    };
+
+    window.addEventListener("scroll", updateHeader, {
+        passive: true
+    });
+
+    updateHeader();
+
+}
